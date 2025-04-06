@@ -19,11 +19,16 @@ Telegram Bot API Token
 - Клонируем репозиторий
 
 - Создаем виртуальное окружение
-'python -m venv venv'
-
+```
+python -m venv venv
+```
 - Активируем виртуальное окружение
+
 Для Windows
+```
 venv\Scripts\activate
+```
 Для macOS и Linux
+```
 source venv/bin/activate
 ```
