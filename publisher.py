@@ -5,10 +5,7 @@ import os
 import random
 
 
-load_dotenv()
-
-
-def get_num():
+def get_last_comic_num():
     url = 'https://xkcd.com/info.0.json'
     response = requests.get(url)
     response.raise_for_status()
@@ -18,7 +15,7 @@ def get_num():
 
 def get_random_comics():
     url_template = 'https://xkcd.com/{}/info.0.json'
-    last_number = get_num()
+    last_number = get_last_comic_num()
     number = random.randint(0, last_number)
     url = url_template.format(number)
     response = requests.get(url)
@@ -26,13 +23,14 @@ def get_random_comics():
     comics = response.json()
     description = comics['alt']
     img_url = comics['img']
-    img = requests.get(img_url)
-    img.raise_for_status()
-    image = img.content
+    img_response = requests.get(img_url)
+    img_response.raise_for_status()
+    image = img_response.content
     return description, image
 
 
 def main():
+    load_dotenv()
     chat_id = os.environ['CHAT_ID']
     tg_token = os.environ['TG_TOKEN']
     description, image = get_random_comics()
